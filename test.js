@@ -1,4 +1,5 @@
 var loadedTracks = [];
+var da;
 
 $(document).ready(function () {
 	//Erland: 27618420
@@ -20,7 +21,37 @@ $(document).ready(function () {
 			}
 		});
 	});
+	da = new dataAccess("1e14dbad65f82fa3d3b30b940a36bbb6", "http://soundfcuk.bk-tn.com/auth.php");
+	
 });
+
+function search() {
+	var query = $("#search-query").val();
+	setStatus("Search started");
+	da.fetch(
+			"/tracks/",
+			{
+				q: query
+			},
+			200,
+			3000,
+			function (offset) {
+				setStatus("Fetched with offset " + offset);
+			},
+			function (items) {
+				setStatus("Done (" + items.length + " results)");
+				writeAllTracksAsGrid(items);
+				console.log(items);
+			});
+	return false;
+}
+
+function htmlfilter(input) {
+	var pre = document.createElement('pre');
+    var text = document.createTextNode( input );
+    pre.appendChild(text);
+    return pre.innerHTML;
+}
 
 function btnGetUserLikes() {
 	var userUrl = $("#scprofileurl").val();
@@ -58,14 +89,15 @@ function getTracksUsingOffset(url, offset, limit, max) {
 		for (var i = 0; i < tracks.length; i++) {
 			loadedTracks.push(tracks[i]);
 		}
-		setStatus("Fetched tracks " + offset + " to " + (offset + limit - 1) + " - got " + tracks.length + " tracks (" + (max - offset) + " tracks to go)");
+		setStatus("Fetched tracks " + offset + " to " + (offset + limit - 1) +
+				" - got " + tracks.length + " tracks (" + (max - offset) + " tracks to go)");
 		if (offset < max) {
 			getTracksUsingOffset(url, offset + limit, limit, max);
 		} else {
 			setStatus("Finished fetching tracks - " + loadedTracks.length + " total");
 			switch ($("#showas").val()) {
 				case "grid":
-					writeAllTracksAsGrid();
+					writeAllTracksAsGrid(loadedTracks);
 					break;
 				case "list":
 					writeAllTracksAsList();
@@ -75,13 +107,13 @@ function getTracksUsingOffset(url, offset, limit, max) {
 	});
 }
 
-function writeAllTracksAsGrid() {
+function writeAllTracksAsGrid(tracks) {
 	$("#soundgrid").html("");
 	var i = 0;
 	var interval = setInterval(function () {
-		writeTrackAsGrid(loadedTracks[i]);
+		writeTrackAsGrid(tracks[i]);
 		i++;
-		if (i >= loadedTracks.length) {
+		if (i >= tracks.length) {
 			clearInterval(interval);
 		}
 	}, 2);
@@ -95,7 +127,8 @@ function writeTrackAsGrid(t) {
 	} else {
 		coverUrl = t.user.avatar_url;
 	}
-	var text = '<a title="[' + t.user.username + '] ' + t.title + '" href="' + t.permalink_url + '" target="_blank"><img src="' + coverUrl + '"></a>';
+	var text = '<a title="[' + t.user.username + '] ' + htmlfilter(t.title) + '" href="' +
+			t.permalink_url + '" target="_blank"><img src="' + coverUrl + '"></a>';
 	$(text).hide().appendTo("#soundgrid").fadeIn(300);
 }
 
@@ -112,7 +145,8 @@ function writeAllTracksAsList() {
 }
 
 function writeTrackAsList(t) {
-	var text = '<li><a href="' + t.permalink_url + '" target="_blank">[' + t.user.username + '] ' + t.title + '</a></li>';
+	var text = '<li><a href="' + t.permalink_url + '" target="_blank">[' + t.user.username + '] '
+			+ t.title + '</a></li>';
 	$(text).hide().appendTo("#soundlist").fadeIn(300);
 }
 

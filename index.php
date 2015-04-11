@@ -7,9 +7,23 @@
         <script src="soundcloudSdk.js"></script>
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 		<script src="test.js"></script>
+		<script src="dataAccess.js"></script>
     </head>
     <body>
-        <h1><img src="carlos.jpg"> SOUNDFCUK</h1>
+		<div id='topline'>
+			<div class='element'><img src="carlos.jpg"></div>
+			<div class='element'><h1 id='title'>SOUNDFCUK</h1></div>
+			<div class='element'>
+				<input id="search-query" type='text' placeholder="Search...">
+				<select id="search-type">
+					<option value="tracks">Tracks</option>
+					<!--<option value="users">Users</option>
+					<option value="playlists">Playlists</option>
+					<option value="groups">Groups</option>-->
+				</select>
+				<input id="search-go" type="submit" value="Go" onclick="return search()">
+			</div>
+		</div>
         <p>Paste your soundcloud permalink <input id="scprofileurl" type="text"><button onclick="btnGetUserLikes()">Get likes</button></p>
 		<p>Show as 
 			<select id="showas">
