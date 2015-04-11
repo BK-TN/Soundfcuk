@@ -1,0 +1,42 @@
+body {
+	font-family: Arial, sans-serif;
+	background: #000;
+	color:#fff;
+}
+h1 {
+	text-align: center;
+	color:darkorange;
+	font-size:150px;
+}
+
+h1 img {
+	height:128px;
+}
+p {
+	text-align:center;
+}
+a {
+	color:white;
+}
+#status {
+	font-style: italic;
+	color:darkorange;
+}
+#soundgrid {
+	width:1280px;
+	margin:0 auto;
+}
+#soundgrid .item {
+	width:32px;
+	height:32px;
+	background-color:#444;
+}
+#soundgrid img {
+	width:32px;
+	height:32px;
+	overflow:hidden;
+}
+#soundlist {
+	width:1280px;
+	margin:0 auto;
+}
