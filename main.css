@@ -59,23 +59,65 @@ a {
 
 #status {
 	font-style: italic;
+	font-size:48px;
+	background-color:rgba(0,0,0,0.5);
 	color:darkorange;
+	
+	display:none;
+	
+	position: absolute;
+	z-index:10;
+	top:0; bottom:0; left:0; right:0;
+	padding-top:calc(50vh - 25px);
+	text-align:center;
 }
-#soundgrid {
-	width:1280px;
+
+#maincontent {
+	height:calc(100vh - 50px);
+}
+#maincontent:after {
+	content:"";
+	display:block;
+	clear:both;
+}
+
+#sidebar {
+	width:400px;
+	height:100%;
+	float:left;
+	background-color:#222;
+}
+
+#items {
+	width:calc(100% - 400px);
+	height:100%;
+	float:left;
+	background-color: #111;
+	overflow-y: scroll;
+	position: relative;
+}
+
+#output {
+	width:100%;
 	margin:0 auto;
 }
-#soundgrid .item {
+
+#output .item {
 	width:32px;
 	height:32px;
-	background-color:#444;
+	padding:0;
+	background-color: orange;
+	/*background-image:url('media/spinner.gif'); lags out the browser
+	background-repeat:no-repeat;					needs optimizing
+	background-position: center;*/
+	display:block;
+	float:left;
+	position:relative;
 }
-#soundgrid img {
-	width:32px;
-	height:32px;
+
+#output .image {
+	position: absolute;
+	background-size:cover;
+	top:0; bottom:0; left:0; right:0;
 	overflow:hidden;
-}
-#soundlist {
-	width:1280px;
-	margin:0 auto;
 }

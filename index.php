@@ -11,7 +11,7 @@
     </head>
     <body>
 		<div id='topline'>
-			<div class='element'><img src="carlos.jpg"></div>
+			<div class='element'><img src="media/carlos.jpg"></div>
 			<div class='element'><h1 id='title'>SOUNDFCUK</h1></div>
 			<div class='element'>
 				<input id="search-query" type='text' placeholder="Search...">
@@ -24,17 +24,23 @@
 				<input id="search-go" type="submit" value="Go" onclick="return search()">
 			</div>
 		</div>
-        <p>Paste your soundcloud permalink <input id="scprofileurl" type="text"><button onclick="btnGetUserLikes()">Get likes</button></p>
-		<p>Show as 
-			<select id="showas">
-				<option value="grid">Grid</option>
-				<option value="list">List</option>
-			</select>
-		</p>
-        <p>Filter results <input id="filter" type="text"></p>
-        <p id="status"></p>
-        <p id="output"></p>
-        <div id="soundgrid"></div>
-        <ol id="soundlist"></ol>
+		<div id="maincontent">
+			<div id="sidebar">
+				<p>Show as 
+					<select id="showas">
+						<option value="grid">Grid</option>
+						<option value="list">List</option>
+					</select>
+				</p>
+				<p>Filter results <input id="filter" type="text"></p>
+			</div>
+			<div id="items">
+				<div id="status"></div>
+				<!-- Tracks/users/playlists/groups are put here -->
+				<div id="output">
+					
+				</div>
+			</div>
+		</div>
     </body>
 </html>
