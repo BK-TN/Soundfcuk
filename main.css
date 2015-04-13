@@ -19,6 +19,10 @@ a {
 	color:white;
 }
 
+form {
+	height:100%;
+}
+
 #topline {
 	height:50px;
 	background-color:#444;
@@ -58,9 +62,8 @@ a {
 }
 
 #status {
-	font-style: italic;
 	font-size:48px;
-	background-color:rgba(0,0,0,0.5);
+	background-color:rgba(0,0,0,0.8);
 	color:darkorange;
 	
 	display:none;
@@ -88,7 +91,7 @@ a {
 	background-color:#222;
 }
 
-#items {
+#grid {
 	width:calc(100% - 400px);
 	height:100%;
 	float:left;
@@ -106,9 +109,9 @@ a {
 	width:32px;
 	height:32px;
 	padding:0;
-	background-color: orange;
-	/*background-image:url('media/spinner.gif'); lags out the browser
-	background-repeat:no-repeat;					needs optimizing
+	background-color: #000;
+	/*background-image:url('media/spinner.gif');
+	background-repeat:no-repeat;
 	background-position: center;*/
 	display:block;
 	float:left;
