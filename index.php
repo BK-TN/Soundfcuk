@@ -30,13 +30,21 @@
 		</div>
 		<div id="maincontent">
 			<div id="sidebar">
-				<p>Show as 
-					<select id="showas">
-						<option value="grid">Grid</option>
-						<option value="list">List</option>
-					</select>
-				</p>
-				<p>Filter results <input id="filter" type="text"></p>
+				<table>
+					<tr>
+						<td>Show as</td>
+						<td>
+							<select id="showas">
+								<option value="grid">Grid</option>
+								<option value="list">List</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Filter results</td>
+						<td><input id="filter" type="text"></td>
+					</tr>
+				</table>
 			</div>
 			<div id="grid">
 				<div id="status"></div>
