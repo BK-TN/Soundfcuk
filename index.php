@@ -16,7 +16,7 @@
     <body>
 		<div id='topline'>
 			<div class='element'><img src="media/carlos.jpg"></div>
-			<div class='element'><h1 id='title'>SOUNDFCUK</h1></div>
+			<div class='element'><h1 id='title'><a href="https://github.com/BK-TN/Soundfcuk" title="View Github repo">SOUNDFCUK</a></h1></div>
 			<div class='element'>
 				<input id="search-query" type='text' placeholder="Search...">
 				<select id="search-type">
