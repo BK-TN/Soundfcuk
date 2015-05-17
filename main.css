@@ -139,6 +139,15 @@ select {
 	position:relative;
 }
 
+#output .listitem {
+	display:block;
+	background-color:#111;
+}
+
+#output .listitem:nth-child(odd) {
+	background-color:#222;
+}
+
 #output .image {
 	position: absolute;
 	background-size:cover;

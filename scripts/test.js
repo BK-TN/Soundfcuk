@@ -18,6 +18,11 @@ $(document).ready(function () {
 			}
 		});
 	});
+	displayMode = $("#showas").val();
+	$("#showas").change(function() {
+		displayMode = $("#showas").val();
+		writeItems(loadedItems);
+	});
 	$("#search-query").keyup(function(e) {
 		if (e.keyCode === 13) {
 			$("#search-go").click();
@@ -27,6 +32,15 @@ $(document).ready(function () {
 
 function search() {
 	var query = $("#search-query").val();
-	fetchList("/tracks/",{q: query});
+	var type = $("#search-type").val();
+	switch(type) {
+		case "tracks":
+			fetchList("/tracks/",{q: query});
+			break;
+		case "users":
+			fetchList("/users/",{q:query});
+			break;
+	}
+	
 	return false;
 }
