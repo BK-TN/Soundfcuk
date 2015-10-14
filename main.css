@@ -15,10 +15,6 @@ h1 img {
 	height:128px;
 }
 
-p {
-	text-align:center;
-}
-
 a {
 	color:white;
 }
@@ -83,6 +79,14 @@ select {
 }
 
 #status {
+    height:30px;
+    line-height:30px;
+    background-color:#444;
+    text-align:center;
+}
+
+/*
+#status {
 	font-size:48px;
 	background-color:rgba(0,0,0,0.8);
 	color:darkorange;
@@ -94,10 +98,10 @@ select {
 	top:0; bottom:0; left:0; right:0;
 	padding-top:calc(50vh - 25px);
 	text-align:center;
-}
+}*/
 
 #maincontent {
-	height:calc(100vh - 50px);
+	height:calc(100vh - 50px - 30px);
 }
 #maincontent:after {
 	content:"";
@@ -162,4 +166,8 @@ select {
 	background-size:cover;
 	top:0; bottom:0; left:0; right:0;
 	overflow:hidden;
+}
+
+#output .image.user {
+    border-radius:50%;
 }

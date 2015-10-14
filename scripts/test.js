@@ -34,11 +34,12 @@ function search() {
 	var query = $("#search-query").val();
 	var type = $("#search-type").val();
 	switch(type) {
-		case "tracks":
-			fetchList("/tracks/",{q: query});
+	    case "tracks":
+	        new FetchRequest("/tracks/", { q: query }, function (items) { writeItems(items); });
+		    //mainTab.fetch();
 			break;
 		case "users":
-			fetchList("/users/",{q:query});
+		    new FetchRequest("/users/", { q: query }, function (items) { writeItems(items); });
 			break;
 	}
 	

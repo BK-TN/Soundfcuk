@@ -30,47 +30,8 @@ var maxItems = 1000;
 
 var displayMode = "grid";
 
-//Fetches until there are no more items left or maxItems has been reached.
-function fetchList(uri,uriData) {
-	showStatus();
-	this.setStatus("Fetching items from " + uri);
-	var tempItems = []; //Varaible to store items in while loading them
-	var fetchPart = function(offset) {
-		SC.get(uri, $.extend(uriData, {
-			offset: offset,
-			limit: itemsPerRequest
-		}),function(output,error) {
-			if (error !== null) {
-				//An error occoured, stop the fetching
-				setStatus("There was an error! " + error.message);
-				hideStatus();
-				return;
-			}
-			var fetchedItems = [];
-			if (output.collection !== undefined) {
-				fetchedItems = output.collection;
-			} else {
-				fetchedItems = output;
-			}
-			tempItems.push.apply(tempItems,fetchedItems);
-			if (fetchedItems.length > 0 && offset < maxItems) {
-				//Tracks fetched - there are probably more left
-				setStatus("Fetched with offset " + offset);
-				fetchPart(offset + itemsPerRequest);
-			} else {
-				//No tracks fetched or max tracks reached - this is most likely the endpoint
-				setStatus("Done (" + tempItems.length + " results)");
-				hideStatus();
-				loadedItems = tempItems;
-				writeItems(loadedItems);
-			}
-		});
-	};
-	fetchPart(0); //Start a recursive function that fetches stuff
-}
-
 function writeItems(items) {
-	$(eOutput).html("");
+	//$(eOutput).html("");
 	var i = 0;
 	var interval = setInterval(function () {
 		writeItem(items[i]);
@@ -81,7 +42,7 @@ function writeItems(items) {
 	}, 2);
 	var writeItem = function(i) {
 		//Pick which way to write it
-		if (i.kind === undefined) return;
+		if (i === undefined || i.kind === undefined) return;
 		switch(i.kind) {
 			case "track":
 				writeTrack(i);
@@ -95,20 +56,22 @@ function writeItems(items) {
 		//First, figure out which cover image to use
 		var coverUrl;
 		if (t.artwork_url !== null) {
-			coverUrl = t.artwork_url;
+		    coverUrl = t.artwork_url;
 		} else {
 			coverUrl = t.user.avatar_url;
 		}
+		coverUrl = coverUrl.replace("-large", "-small");
 		var text = '<a class="item" title="[' + htmlfilter(t.user.username) + '] ' +
-				htmlfilter(t.title) + '" href="#"><div class="image" style="background-image:url(' + coverUrl + ');"></div></a>';
+				htmlfilter(t.title) + '" href="#"><div class="image track" style="background-image:url(' + coverUrl + ');"></div></a>';
 		append(text,function() {
 			displayTrack(t);
 		});
 	};
 	var writeUser = function(u) {
 		switch(displayMode) {
-			default: //GRID by default
-				var text = '<a class="item" title="' + htmlfilter(u.username) + '" href="#"><div class="image" style="background-image:url(' + u.avatar_url + ');"></div></a>';
+		    default: //GRID by default
+		        var avatarUrl = u.avatar_url.replace("-large","-small");
+				var text = '<a class="item" title="' + htmlfilter(u.username) + '" href="#"><div class="image user" style="background-image:url(' + avatarUrl + ');"></div></a>';
 				append(text,function() {
 					displayUser(u);
 				});
@@ -160,12 +123,12 @@ function displayUser(u) {
 	$(eOutput).html(text).hide().fadeIn(300);
 	var text2 = '<a href="#">Show following (' + u.followings_count + ')</a>';
 	$(text2).appendTo(eOutput).click(function() {
-		fetchList("/users/" + u.id + "/followings/");
+	    new FetchRequest("/users/" + u.id + "/followings/", {}, function (items) { writeItems(items)});
 	});
 }
 
 function tr(a,b) {
-	return "<tr><td>" + a + "</td><td>" + b + "</td>";
+	return "<tr><td>" + a + "</td><td>" + b + "</td></tr>";
 }
 
 function htmlfilter(input) {
@@ -177,16 +140,6 @@ function htmlfilter(input) {
 
 function setStatus(text) {
 	$(eStatus).html(text);
-}
-
-function showStatus() {
-	$(eStatus).fadeIn(300);
-}
-
-function hideStatus() {
-	setTimeout(function() {
-		$("#status").fadeOut(2000);
-	},1000);
 }
 
 //use this code later
