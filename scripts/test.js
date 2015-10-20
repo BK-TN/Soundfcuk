@@ -1,3 +1,4 @@
+var coolTab;
 $(document).ready(function () {
 	//Profiles used for testing likes
 	//Erland: 27618420 - shitton of likes
@@ -28,14 +29,17 @@ $(document).ready(function () {
 			$("#search-go").click();
 		}
 	});
+
+	coolTab = new Tab("Cool tab");
 });
 
 function search() {
 	var query = $("#search-query").val();
 	var type = $("#search-type").val();
+	$(eOutput).html("");
 	switch(type) {
 	    case "tracks":
-	        new FetchRequest("/tracks/", { q: query }, function (items) { writeItems(items); });
+	        new FetchRequest("/tracks/", { q: query }, function (items) { coolTab.addList(items) });
 		    //mainTab.fetch();
 			break;
 		case "users":

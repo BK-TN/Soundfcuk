@@ -9,6 +9,7 @@
 		<script src="scripts/soundfcuk.js"></script>
 		<script src="scripts/test.js"></script>
         <script src="scripts/fetchRequest.js"></script>
+        <script src="scripts/canvas.js"></script>
 		<script>
 			//fetchList();
 			//SC.URI("fasewf",{});
@@ -30,7 +31,7 @@
 			</div>
 		</div>
 		<div id="maincontent">
-			<!--<div id="sidebar">
+			<div id="sidebar">
 				<table>
 					<tr>
 						<td>Show as</td>
@@ -46,12 +47,20 @@
 						<td><input id="filter" type="text"></td>
 					</tr>
 				</table>
-			</div>-->
+			</div>
 			<div id="grid">
+                <ul id="tabs">
+                    <!-- Tabs are put here -->
+                    <li class="selected">Tab</li>
+                    <li>Tab</li>
+                </ul>
 				<!-- Tracks/users/playlists/groups are put here -->
-				<div id="output">
+                <div id="canvasContainer">
+                    <canvas id="canvas"></canvas>
+                </div>
+				<!--<div id="output">
 					
-				</div>
+				</div>-->
 			</div>
 		</div>
         <div id="status">

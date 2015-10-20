@@ -1,7 +1,5 @@
 ﻿function FetchRequest(uri, uriData, onItemsFetched) {
     //Variables
-    //this.uri = uri;
-    //this.uriData = uriData;
     this.offset = 0;
     this.totalItems = 0;
     //Functions

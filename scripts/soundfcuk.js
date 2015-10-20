@@ -23,6 +23,7 @@
 
 var eOutput = "#output";
 var eStatus = "#status";
+var eTabs = "#tabs";
 var loadedItems = [];
 
 var itemsPerRequest = 200;
@@ -30,16 +31,44 @@ var maxItems = 1000;
 
 var displayMode = "grid";
 
+function Tab(name) {
+    $("<li>" + name + "</li>").appendTo(eTabs).click(function () {
+        console.log("wew lad");
+    });
+
+    this.name = name;
+    this.items = [];
+    this.canvasItems = [];
+
+    this.addList = function (newItems) {
+        this.items.push.apply(this.items, newItems);
+        this.update();
+        for (var i = 0; i < newItems.length; i++) {
+            this.canvasItems.push(new CanvasItem(newItems[i]));
+        }
+    }
+
+    /*this.addSingle = function (newItem) { unused
+        this.items.push(newItem);
+        this.update();
+    }*/
+
+    this.update = function () {
+        /*$(eOutput).html("");
+        writeItems(this.items);*/
+    }
+}
+
 function writeItems(items) {
-	//$(eOutput).html("");
-	var i = 0;
+    //$(eOutput).html("");
+    /*var i = 0;
 	var interval = setInterval(function () {
 		writeItem(items[i]);
 		i++;
 		if (i >= items.length) {
 			clearInterval(interval);
 		}
-	}, 2);
+	}, 2);*/
 	var writeItem = function(i) {
 		//Pick which way to write it
 		if (i === undefined || i.kind === undefined) return;
@@ -90,6 +119,10 @@ function writeItems(items) {
 			onClick();
 		});
 	};
+	for (var i = 0; i < items.length; i++) {
+	    writeItem(items[i]);
+	}
+	console.log(items.length);
 }
 
 function displayTrack(t) {
